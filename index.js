@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const ratingRouter = require("./routes/bookrating");
+const fanfictRouter = require("./routes/fanfict");
 
 app.use(express.json());
 
@@ -17,6 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/rating", ratingRouter);
+app.use("/fanfict", fanfictRouter);
+
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -24,6 +27,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
+
 
 app.listen(port, () => {
     console.log(`Example API running on http://localhost:${port}`);

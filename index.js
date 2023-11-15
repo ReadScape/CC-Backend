@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
     res.json({ message: "ok"});
 });
 app.get("/pm2test",(req, res) => {;
-    res.json({ message: "this is to test pm2 restart"})
+    res.json({ message: "this is to test pm2 restart it should change now"})
 });
 
 app.use("/rating", ratingRouter);

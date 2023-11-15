@@ -1,10 +1,10 @@
 const config = {
     db: {
         host: "localhost",
-        user: "root",
-        password: "",
-        database: "ml-api-test",
-        coonectTimeout: 60000
+        user: "readscape",
+        password: "gustira1708",
+        database: "readscape",
+        connectTimeout: 60000
     },
 
     listPerPage: 10,

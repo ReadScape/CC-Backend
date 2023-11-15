@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const ratingRouter = require("./routes/bookrating");
 const fanfictRouter = require("./routes/fanfict");
+const chaptersRouter = require("./routes/chapters");
 
 app.use(express.json());
 
@@ -16,9 +17,13 @@ app.use(
 app.get("/", (req, res) => {
     res.json({ message: "ok"});
 });
+app.get("/pm2test",(req, res) => {;
+    res.json({ message: "this is to test pm2 restart"})
+});
 
 app.use("/rating", ratingRouter);
-app.use("/fanfict", fanfictRouter);
+app.use("/fiction", fanfictRouter);
+app.use("/chapters", chaptersRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

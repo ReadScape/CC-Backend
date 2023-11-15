@@ -4,6 +4,7 @@ const port = 3000;
 const ratingRouter = require("./routes/bookrating");
 const fanfictRouter = require("./routes/fanfict");
 const chaptersRouter = require("./routes/chapters");
+const fictionRatingRouter = require("./routes/fiction_rating");
 
 app.use(express.json());
 
@@ -24,7 +25,7 @@ app.get("/pm2test",(req, res) => {;
 app.use("/rating", ratingRouter);
 app.use("/fiction", fanfictRouter);
 app.use("/chapters", chaptersRouter);
-
+app.use("/fiction_ratings", fictionRatingRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

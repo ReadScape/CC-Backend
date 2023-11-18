@@ -18,7 +18,7 @@ router.get('/', async function(req, res, next) {
 router.post('/', async (req, res, next) => {
     const storage = multer.memoryStorage();
     var upload = multer({
-        storage: storage}).single('userFile');
+        storage: storage}).single('text');
     upload(req, res, function(err) {
         console.log("File uploaded");
     })

@@ -21,7 +21,6 @@ router.post('/', async (req, res, next) => {
         storage: storage}).single('userFile');
     upload(req, res, function(err) {
         console.log("File uploaded");
-        res.end('File is uploaded')
     })
     console.log('req.body:', req.body);
     console.log('req.file:', req.file);

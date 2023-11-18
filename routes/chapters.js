@@ -25,7 +25,7 @@ router.post('/', upload.single('pdf'), async function (req, res, next) {
             user_id: req.body.user_id,
         };
 
-        res.json(await chapters.create(combinedData));
+        res.json(await chapters.create(chapterData));
     } catch (err) {
         console.error(`Error while creating chapter`, err.message);
         next(err);

@@ -24,7 +24,7 @@ router.post('/', upload.single('pdf'), async (req, res, next) => {
             title_chapter: req.body.title_chapter,
             user_id: req.body.user_id,
         };
-        
+        console.log(chapterData);
         const result = await chapters.create(req, res, chapterData);
         res.json(result);
     } catch (err) {

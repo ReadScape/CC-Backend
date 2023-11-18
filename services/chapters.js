@@ -47,5 +47,6 @@ async function create(chapters){
   }
 
 module.exports = {
-    getMultiple
+    getMultiple,
+    create
 }

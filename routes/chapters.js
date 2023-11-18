@@ -12,5 +12,12 @@ router.get('/', async function(req, res, next) {
         next(err);
     }
 });
-
+router.post('/', async function (req, res, next) {
+    try {
+        res.json(await chapters.create(req.body));
+    } catch (err) {
+        console.error(`Error while creating chapter`, err.message);
+        next(err);
+    }
+});
 module.exports = router;

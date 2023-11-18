@@ -15,7 +15,7 @@ router.get('/', async function(req, res, next) {
     }
 });
 
-router.post('/', upload.single('pdf'), async function (req, res, next) {
+router.post('/', upload.single('pdf'), async (req, res, next) => {
     try {
         const chapterData = {
             fiction_id: req.body.fiction_id,
@@ -24,8 +24,9 @@ router.post('/', upload.single('pdf'), async function (req, res, next) {
             title_chapter: req.body.title_chapter,
             user_id: req.body.user_id,
         };
-
-        res.json(await chapters.create(chapterData));
+        
+        const result = await chapters.create(req, res, chapterData);
+        res.json(result);
     } catch (err) {
         console.error(`Error while creating chapter`, err.message);
         next(err);

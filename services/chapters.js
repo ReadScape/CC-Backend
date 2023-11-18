@@ -21,9 +21,12 @@ async function getMultiple(page = 1){
 }
 
 async function create(req, res, chapters){
-    chapters.pdf = req.file;
+  if (!chapters) {
+    throw new Error('Chapters data is undefined');
+}
+    chapters.pdf = chapters.pdf || {};
     const url = await upload(chapters.pdf);
-    
+
     const result = await db.query(
       `INSERT INTO chapters 
       (chapter_id, fiction_id, path_to_text, chapter, title_chapter, user_id) 

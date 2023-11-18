@@ -1,4 +1,4 @@
-const { storage } = require('@google-cloud/storage');
+const { Storage } = require('@google-cloud/storage');
 const credFileName = 'bucket.json'
 const bucketName = 'bucket-capstone-timkiki'
 

@@ -1,6 +1,9 @@
 const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
+const upload = require("./process/bucket");
+const Multer = require("multer");
+const util = require("util");
 
 async function getMultiple(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
@@ -16,6 +19,32 @@ async function getMultiple(page = 1){
         meta
     }
 }
+
+async function create(chapters){
+    let processFile = Multer({
+        storage: Multer.memoryStorage(),
+    }).single("pdf");
+
+    let parseFile = util.promisify(processFile);
+    await parseFile(req, res)
+    const url = await upload(req.file)
+
+
+    const result = await db.query(
+      `INSERT INTO chapters 
+      (chapter_id, fiction_id, path_to_text, chapter, title_chapter, user_id) 
+      VALUES 
+      (UUID(), '${chapters.fiction_id}', '${url}', ${chapters.chapter}, '${chapters.title_chapter}', '${chapters.user_id}')`
+    );
+  
+    let message = 'Error in creating chapter';
+  
+    if (result.affectedRows) {
+      message = 'chapter created successfully';
+    }
+  
+    return {message};
+  }
 
 module.exports = {
     getMultiple

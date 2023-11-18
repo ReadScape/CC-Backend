@@ -16,6 +16,8 @@ router.get('/', async function(req, res, next) {
 });
 
 router.post('/', upload.single('pdf'), async (req, res, next) => {
+    console.log('req.body:', req.body);
+    console.log('req.file:', req.file);
     try {
         const chapterData = {
             fiction_id: req.body.fiction_id,

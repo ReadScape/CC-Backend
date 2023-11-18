@@ -17,7 +17,7 @@ router.post('/', async function (req, res, next) {
     try {
         res.json(await fanfict.create(req.body));
     } catch (err) {
-        console.errror(`Error while creating fiction`, err.message);
+        console.error(`Error while creating fiction`, err.message);
         next(err);
     }
 });

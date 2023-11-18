@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const chapters = require("../services/chapters");
+const multer = require("multer")
 
-/* Get Fanfic list */
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.get('/', async function(req, res, next) {
     try {
@@ -13,19 +15,16 @@ router.get('/', async function(req, res, next) {
     }
 });
 
-router.post('/', async function (req, res, next) {
+router.post('/', upload.single('pdf'), async function (req, res, next) {
     try {
-        // Access the regular request body using req.body
-        const requestBody = req.body;
-
-        // Access the uploaded file using req.file
-        const uploadedFile = req.file;
-
-        // Combine the regular request body and file data as needed
-        const combinedData = {
-            ...requestBody,
-            file: uploadedFile,
+        const chapterData = {
+            fiction_id: req.body.fiction_id,
+            pdf: req.file,
+            chapter: req.body.chapter,
+            title_chapter: req.body.title_chapter,
+            user_id: req.body.user_id,
         };
+
         res.json(await chapters.create(combinedData));
     } catch (err) {
         console.error(`Error while creating chapter`, err.message);

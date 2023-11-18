@@ -21,15 +21,8 @@ async function getMultiple(page = 1){
 }
 
 async function create(chapters){
-    let processFile = Multer({
-        storage: Multer.memoryStorage(),
-    }).single("pdf");
-
-    let parseFile = util.promisify(processFile);
-    await parseFile(req, res)
+  
     const url = await upload(req.file)
-
-
     const result = await db.query(
       `INSERT INTO chapters 
       (chapter_id, fiction_id, path_to_text, chapter, title_chapter, user_id) 

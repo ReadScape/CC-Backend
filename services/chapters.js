@@ -20,9 +20,10 @@ async function getMultiple(page = 1){
     }
 }
 
-async function create(chapters){
-  
-    const url = await upload(req.file)
+async function create(req, res, chapters){
+    chapters.pdf = req.file;
+    const url = await upload(chapters.pdf);
+    
     const result = await db.query(
       `INSERT INTO chapters 
       (chapter_id, fiction_id, path_to_text, chapter, title_chapter, user_id) 

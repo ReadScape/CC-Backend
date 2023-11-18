@@ -3,8 +3,8 @@ const router = express.Router();
 const chapters = require("../services/chapters");
 const multer = require("multer")
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+
+
 
 router.get('/', async function(req, res, next) {
     try {
@@ -15,13 +15,20 @@ router.get('/', async function(req, res, next) {
     }
 });
 
-router.post('/', upload.single('text'), async (req, res, next) => {
+router.post('/', async (req, res, next) => {
+    const storage = multer.memoryStorage();
+    var upload = multer({
+        storage: storage}).single('userFile');
+    upload(req, res, function(err) {
+        console.log("File uploaded");
+        res.end('File is uploaded')
+    })
     console.log('req.body:', req.body);
     console.log('req.file:', req.file);
     try {
         const chapterData = {
             fiction_id: req.body.fiction_id,
-            pdf: req.file,
+            text: req.file,
             chapter: req.body.chapter,
             title_chapter: req.body.title_chapter,
             user_id: req.body.user_id,

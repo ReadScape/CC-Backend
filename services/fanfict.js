@@ -43,7 +43,7 @@ async function create(fiction){
       `INSERT INTO fiction 
       (fiction_id, user_id, author, title, synopsis, tags, chapters) 
       VALUES 
-      (UUID(), ${fiction.user_id}, ${fiction.author}, ${fiction.title}, ${fiction.synopsis}, ${fiction.tags}, ${fiction.chapters})`
+      (UUID(), '${fiction.user_id}', '${fiction.author}', '${fiction.title}', '${fiction.synopsis}', '${fiction.tags}', ${fiction.chapters})`
     );
   
     let message = 'Error in creating programming language';

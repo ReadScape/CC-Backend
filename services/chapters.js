@@ -20,28 +20,36 @@ async function getMultiple(page = 1){
     }
 }
 
-async function create(req, res, chapters){
-  if (!chapters) {
-    throw new Error('Chapters data is undefined');
-}
-    chapters.pdf = chapters.pdf || {};
-    const url = await upload(chapters.pdf);
-
+async function create(req, res, chapters) {
+  try {
     const result = await db.query(
       `INSERT INTO chapters 
       (chapter_id, fiction_id, path_to_text, chapter, title_chapter, user_id) 
       VALUES 
-      (UUID(), '${chapters.fiction_id}', '${url}', ${chapters.chapter}, '${chapters.title_chapter}', '${chapters.user_id}')`
-    );
-  
-    let message = 'Error in creating chapter';
-  
-    if (result.affectedRows) {
-      message = 'chapter created successfully';
-    }
-  
-    return {message};
+      (UUID(), '${chapters.fiction_id}', '${chapters.text}', ${chapters.chapter}, '${chapters.title_chapter}', '${chapters.user_id}')`
+  );
+
+  console.log('Database Query Result:', result); // Add this line for debugging
+
+  let message = 'Error in creating chapter';
+
+  if (result && result.affectedRows > 0) {
+      message = 'Chapter created successfully';
   }
+
+  return { message };
+} catch (err) {
+  console.error('Error while creating chapter', err.message);
+  throw err; // Rethrow the error for further handling in the route or middleware
+}
+  }
+
+/*  const result = await db.query(
+    `INSERT INTO chapters 
+    (chapter_id, fiction_id, path_to_text, chapter, title_chapter, user_id) 
+    VALUES 
+    (UUID(), '${chapters.fiction_id}', '${chapters.text}', ${chapters.chapter}, '${chapters.title_chapter}', '${chapters.user_id}')`
+  ); */
 
 module.exports = {
     getMultiple,

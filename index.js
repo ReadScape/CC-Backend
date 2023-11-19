@@ -5,9 +5,12 @@ const ratingRouter = require("./routes/bookrating");
 const fanfictRouter = require("./routes/fanfict");
 const chaptersRouter = require("./routes/chapters");
 const fictionRatingRouter = require("./routes/fiction_rating");
+const bodyParser = require('body-parser');
+
 
 app.use(express.json());
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
     express.urlencoded({

@@ -3,7 +3,7 @@ const helper = require("../helper");
 const config = require("../config");
 
 
-// READ FUNCTION
+// READ FUNCTION blablablablalblalbaba
 
 async function getMultiple(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);

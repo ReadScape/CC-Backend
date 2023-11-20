@@ -5,6 +5,7 @@ const ratingRouter = require("./routes/bookrating");
 const fanfictRouter = require("./routes/fanfict");
 const chaptersRouter = require("./routes/chapters");
 const fictionRatingRouter = require("./routes/fiction_rating");
+const pdfToDatabaseRouter = require("./routes/pdfToDatabase");
 const bodyParser = require('body-parser');
 
 
@@ -29,6 +30,7 @@ app.use("/rating", ratingRouter);
 app.use("/fiction", fanfictRouter);
 app.use("/chapters", chaptersRouter);
 app.use("/fiction_ratings", fictionRatingRouter);
+app.use("/pdftodatabase", pdfToDatabaseRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -39,7 +41,7 @@ app.use((err, req, res, next) => {
 
 
 app.listen(port, () => {
-    console.log(`Example API running on http://localhost:${port}`);
+    console.log(`Example API running on http://readscape.live:${port}`);
 });
 
 

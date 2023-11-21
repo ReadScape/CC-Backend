@@ -31,9 +31,9 @@ async function create(pdfText){
     }
   
     return {message};
-  }
+}
 
-  module.exports = {
+module.exports = {
     getPdf,
     create
   }

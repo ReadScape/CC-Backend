@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fanfict = require("../services/fanfict");
+const fanfict = require("../services/fiction_rating");
 
 /* Get Fanfic list */
 

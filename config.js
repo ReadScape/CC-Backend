@@ -1,6 +1,6 @@
 const config = {
     db: {
-        host: "readscape.live",
+        host: "localhost",
         user: "readscape",
         password: "gustira1708",
         database: "readscape",

@@ -6,6 +6,7 @@ const fanfictRouter = require("./routes/fanfict");
 const chaptersRouter = require("./routes/chapters");
 const fictionRatingRouter = require("./routes/fiction_rating");
 const pdfToDatabaseRouter = require("./routes/pdfToDatabase");
+const usersRouter = require("./routes/users");
 const bodyParser = require('body-parser');
 
 
@@ -31,6 +32,7 @@ app.use("/fiction", fanfictRouter);
 app.use("/chapters", chaptersRouter);
 app.use("/fiction_ratings", fictionRatingRouter);
 app.use("/pdftodatabase", pdfToDatabaseRouter);
+app.use("/users", usersRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

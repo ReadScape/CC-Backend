@@ -44,7 +44,7 @@ async function create(req, res, chapters) {
   console.error('Error while creating chapter', err.message);
   throw err; // Rethrow the error for further handling in the route or middleware
 }
-  }
+}
 
 /*  const result = await db.query(
     `INSERT INTO chapters 

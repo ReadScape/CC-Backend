@@ -25,7 +25,7 @@ async function createPostData(CPD){
       `INSERT INTO post_data 
       (post_id, user_id, post, post_tags) 
       VALUES 
-      ('${CPD.post_id}', '${CPD.user_id}', '${CPD.post}', '${CPD.post_tags}')`
+      (UUID(), '${CPD.user_id}', '${CPD.post}', '${CPD.post_tags}')`
     );
   
     let message = 'Error in creating the post data';

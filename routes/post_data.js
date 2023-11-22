@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const postdata = require("../services/postdata");
+const postdata = require("../services/post_data");
 
 /// get
 

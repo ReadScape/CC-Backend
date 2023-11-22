@@ -53,8 +53,9 @@ async function create(fiction){
     }
   
     return {message};
-  }
+}
   
+
 
 module.exports = {
     getMultiple,

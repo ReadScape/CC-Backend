@@ -9,6 +9,7 @@ const pdfToDatabaseRouter = require("./routes/pdfToDatabase");
 const usersRouter = require("./routes/users");
 const calculatedRatingRouter = require("./routes/calculate_fiction_rating");
 const postDataRouter = require("./routes/post_data");
+const userTagDataRouter = require("./routes/userTagData");
 const bodyParser = require('body-parser');
 
 
@@ -37,6 +38,8 @@ app.use("/pdftodatabase", pdfToDatabaseRouter);
 app.use("/users", usersRouter);
 app.use("/calculatedrating",calculatedRatingRouter);
 app.use("/post_data",postDataRouter);
+app.use("/userTagData",userTagDataRouter);
+
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

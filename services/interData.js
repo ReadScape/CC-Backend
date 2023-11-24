@@ -22,10 +22,10 @@ async function getinterData(page = 1){
 
 async function createinterData(indat){
     const result = await db.query(
-      `INSERT INTO post_data 
+      `INSERT INTO interaction_data 
       (post_id, user_id, love, comment, share) 
       VALUES 
-      ('${indat.post_id}','${indat.user_id}', '${UTD.tags}')`
+      ('${indat.post_id}','${indat.user_id}', '${indat.love}', '${indat.comment}', '${indat.share}')`
     );
   
     let message = 'Error in creating the interaction data';

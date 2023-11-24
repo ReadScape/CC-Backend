@@ -10,6 +10,8 @@ const usersRouter = require("./routes/users");
 const calculatedRatingRouter = require("./routes/calculate_fiction_rating");
 const postDataRouter = require("./routes/post_data");
 const userTagDataRouter = require("./routes/userTagData");
+const interDataRouter = require("./routes/interData");
+const calcPostPopRouter = require("./routes/calcPostPopularity");
 const bodyParser = require('body-parser');
 
 
@@ -39,6 +41,8 @@ app.use("/users", usersRouter);
 app.use("/calculatedrating",calculatedRatingRouter);
 app.use("/post_data",postDataRouter);
 app.use("/userTagData",userTagDataRouter);
+app.use("/interData", interDataRouter);
+app.use("/calcPostPopularity", calcPostPopRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

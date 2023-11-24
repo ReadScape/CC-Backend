@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const userTagData = require("../services/userTagData");
+const interData = require("../services/interData");
 
 /// get
 
 router.get('/', async function(req, res, next) {
     try {
-        res.json(await userTagData.getUTagData(req.query.page));
+        res.json(await interData.getinterData(req.query.page));
     } catch (err) {
-        console.error(`Error while getting user tag data`, err.message);
+        console.error(`Error while getting interaction data`, err.message);
         next(err);
     }
 });
@@ -17,9 +17,9 @@ router.get('/', async function(req, res, next) {
 
 router.post('/', async function (req, res, next) {
     try {
-        res.json(await userTagData.createUTagData(req.body));
+        res.json(await interData.createinterData(req.body));
     } catch (err) {
-        console.error(`Error while creating user tag data`, err.message);
+        console.error(`Error while creating interaction data`, err.message);
         next(err);
     }
 });

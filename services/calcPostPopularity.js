@@ -5,10 +5,10 @@ const config = require("../config");
 
 // READ FUNCTION blablablablalblalbaba
 
-async function getUTagData(page = 1){
+async function getCalcPostPop(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-        `SELECT * FROM user_tags_data LIMIT ${offset}, ${config.listPerPage}`
+        `SELECT * FROM calculate_post_popularity LIMIT ${offset}, ${config.listPerPage}`
     );
 
     const data = helper.emptyOrRows(rows);
@@ -20,24 +20,24 @@ async function getUTagData(page = 1){
     }
 }
 
-async function createUTagData(UTD){
+async function createCalcPostPop(UTD){
     const result = await db.query(
-      `INSERT INTO user_tags_data 
-      (user_id, tags) 
+      `INSERT INTO calculate_post_popularity
+      (post_id, popularity) 
       VALUES 
-      ('${UTD.user_id}', '${UTD.tags}')`
+      ('${UTD.post_id}', '${UTD.popularity}')`
     );
   
-    let message = 'Error in creating the user tag data';
+    let message = 'Error in creating the Calculated post popularity';
   
     if (result.affectedRows) {
-      message = 'User tag data created ok';
+      message = 'Calculated post popularity created ok';
     }
   
     return {message};
 }
 
 module.exports = {
-    getUTagData,
-    createUTagData,
+    getCalcPostPop,
+    createCalcPostPop,
 }

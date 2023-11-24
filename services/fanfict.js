@@ -8,7 +8,7 @@ const config = require("../config");
 async function getMultiple(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-        `SELECT * FROM fiction LIMIT ${offset}, ${config.listPerPage}`
+        `SELECT * FROM fiction WHERE deleted_at IS NULL LIMIT ${offset}, ${config.listPerPage}`
     );
 
     const data = helper.emptyOrRows(rows);
@@ -55,10 +55,24 @@ async function create(fiction){
     return {message};
 }
   
+// DELETE Function
 
-
+async function remove(id){
+    const currentDateTime = new Date().toISOString();
+    const delquery = `UPDATE fiction SET deleted_at = NOW() WHERE fiction_id='${id}'`;
+    const result = await db.query( delquery );
+    let message = 'Error in updating programming language';
+  
+    if (result.affectedRows) {
+      message = 'Programming language updated successfully';
+    }
+  
+    return {message};
+  }
+  
 module.exports = {
     getMultiple,
     getRating,
-    create
+    create,
+    remove,
 }

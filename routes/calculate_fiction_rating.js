@@ -22,6 +22,15 @@ router.post('/', async function (req, res, next) {
     }
 });
 
+//delete
+router.patch('/:id', async function (req, res, next) {
+    try {
+        res.json(await calculate_fiction_rating.removeCFR(req.params.id));
+    } catch (err) {
+        console.error(`Error while deleting calculated post popularity`, err.message);
+        next(err);
+    }
+});
 
 
 module.exports = router;

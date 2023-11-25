@@ -37,7 +37,21 @@ async function createCalcPostPop(UTD){
     return {message};
 }
 
+async function removeCalcPostPop(id){
+    const currentDateTime = new Date().toISOString();
+    const delquery = `UPDATE calculate_post_popularity SET deleted_at = NOW() WHERE post_id='${id}'`;
+    const result = await db.query( delquery );
+    let message = 'Error in deleting the calculated post popularity';
+  
+    if (result.affectedRows) {
+      message = 'Calculated post popularity deleted successfully';
+    }
+  
+    return {message};
+}
+
 module.exports = {
     getCalcPostPop,
     createCalcPostPop,
+    removeCalcPostPop
 }

@@ -69,10 +69,37 @@ async function createFicRate(FicRate){
     return {message};
 }
 
+async function removeCFR(id){
+    const currentDateTime = new Date().toISOString();
+    const delquery = `UPDATE calculate_fiction_rating SET deleted_at = NOW() WHERE fiction_id='${id}'`;
+    const result = await db.query( delquery );
+    let message = 'Error in deleting the calculate fiction rating';
+  
+    if (result.affectedRows) {
+      message = 'calculate fiction rating deleted successfully';
+    }
+  
+    return {message};
+}
+
+async function removeFicRate(id){
+    const currentDateTime = new Date().toISOString();
+    const delquery = `UPDATE fiction_rating SET deleted_at = NOW() WHERE fiction_id='${id}'`;
+    const result = await db.query( delquery );
+    let message = 'Error in deleting the fiction rating';
+  
+    if (result.affectedRows) {
+      message = 'Fiction rating deleted successfully';
+    }
+  
+    return {message};
+}
 
 module.exports = {
     getCalculatedRating,
     createFicRate,
     createCFR,
     getRating,
+    removeCFR,
+    removeFicRate
 }

@@ -32,10 +32,10 @@ async function create(fiction){
       (UUID(), '${fiction.user_id}', '${fiction.author}', '${fiction.title}', '${fiction.synopsis}', '${fiction.tags}', ${fiction.chapters})`
     );
   
-    let message = 'Error in creating programming language';
+    let message = 'Error in creating fiction';
   
     if (result.affectedRows) {
-      message = 'Programming language created successfully';
+      message = 'fiction created successfully';
     }
   
     return {message};
@@ -47,10 +47,10 @@ async function remove(id){
     const currentDateTime = new Date().toISOString();
     const delquery = `UPDATE fiction SET deleted_at = NOW() WHERE fiction_id='${id}'`;
     const result = await db.query( delquery );
-    let message = 'Error in updating programming language';
+    let message = 'Error in deleting ficiton';
   
     if (result.affectedRows) {
-      message = 'Programming language updated successfully';
+      message = 'Fiction deleted successfully';
     }
   
     return {message};

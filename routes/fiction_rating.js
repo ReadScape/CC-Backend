@@ -22,4 +22,13 @@ router.post('/', async function (req, res, next) {
     }
 });
 
+router.patch('/:id', async function (req, res, next) {
+    try {
+        res.json(await calculate_fiction_rating.removeFicRate(req.params.id));
+    } catch (err) {
+        console.error(`Error while deleting calculate fiction`, err.message);
+        next(err);
+    }
+});
+
 module.exports = router;

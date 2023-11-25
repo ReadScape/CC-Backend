@@ -47,10 +47,10 @@ async function remove(id){
     const currentDateTime = new Date().toISOString();
     const delquery = `UPDATE fiction SET deleted_at = NOW() WHERE fiction_id='${id}'`;
     const result = await db.query( delquery );
-    let message = 'Error in updating programming language';
+    let message = 'Error in deleting fiction';
   
     if (result.affectedRows) {
-      message = 'Programming language updated successfully';
+      message = 'fiction deleted successfully';
     }
   
     return {message};

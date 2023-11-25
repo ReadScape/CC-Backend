@@ -26,7 +26,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-    res.json({ message: "ok"});
+    res.json({ message: "Server is Online!"});
 });
 app.get("/pm2test",(req, res) => {;
     res.json({ message: "this is to test pm2 restart it should change again and retest"})

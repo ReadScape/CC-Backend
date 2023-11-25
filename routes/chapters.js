@@ -54,4 +54,14 @@ router.post('/', async (req, res, next) => {
         }
     });
 });
+
+router.patch('/:id', async function (req, res, next) {
+    try {
+        res.json(await chapters.removeChapters(req.params.id));
+    } catch (err) {
+        console.error(`Error while deleting chapters`, err.message);
+        next(err);
+    }
+});
+
 module.exports = router;

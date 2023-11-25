@@ -46,14 +46,21 @@ async function create(req, res, chapters) {
 }
 }
 
-/*  const result = await db.query(
-    `INSERT INTO chapters 
-    (chapter_id, fiction_id, path_to_text, chapter, title_chapter, user_id) 
-    VALUES 
-    (UUID(), '${chapters.fiction_id}', '${chapters.text}', ${chapters.chapter}, '${chapters.title_chapter}', '${chapters.user_id}')`
-  ); */
+async function removeChapters(id){
+  const currentDateTime = new Date().toISOString();
+  const delquery = `UPDATE chapters SET deleted_at = NOW() WHERE chapter_id='${id}'`;
+  const result = await db.query( delquery );
+  let message = 'Error in deleting chapters';
+
+  if (result.affectedRows) {
+    message = 'Chapters deleted successfully';
+  }
+
+  return {message};
+}
 
 module.exports = {
     getMultiple,
+    removeChapters,
     create
 }

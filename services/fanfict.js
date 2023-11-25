@@ -54,7 +54,7 @@ async function remove(id){
     }
   
     return {message};
-  }
+}
   
 module.exports = {
     getMultiple,

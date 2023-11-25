@@ -28,4 +28,13 @@ router.post('/', async function (req, res, next) {
 
 /// delete
 
+router.patch('/:id', async function (req, res, next) {
+    try {
+        res.json(await interData.removeinterData(req.params.id));
+    } catch (err) {
+        console.error(`Error while deleting interaction data`, err.message);
+        next(err);
+    }
+});
+
 module.exports = router;

@@ -37,7 +37,21 @@ async function createinterData(indat){
     return {message};
 }
 
+async function removeinterData(id){
+    const currentDateTime = new Date().toISOString();
+    const delquery = `UPDATE interaction_data SET deleted_at = NOW() WHERE post_id='${id}'`;
+    const result = await db.query( delquery );
+    let message = 'Error while deleting interaction data';
+  
+    if (result.affectedRows) {
+      message = 'Interaction data deteled successfully';
+    }
+  
+    return {message};
+}
+
 module.exports = {
     getinterData,
     createinterData,
+    removeinterData
 }

@@ -58,7 +58,6 @@ async function remove(id){
   
 module.exports = {
     getMultiple,
-    getRating,
     create,
     remove,
 }

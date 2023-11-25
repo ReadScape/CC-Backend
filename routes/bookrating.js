@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const rating = require('../services/bookrating');
 
+//not being use
+
 /* GET programming languages. */
 router.get('/', async function(req, res, next) {
   try {

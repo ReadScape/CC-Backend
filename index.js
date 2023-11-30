@@ -36,18 +36,18 @@ app.get("/pm2test",(req, res) => {;
 
 // =====================================Phyton Code======================================= //
 
-function continuouslyRunningFunction() {
-    const pythonProcess = exec('python3 services/calculateRating.py', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error executing the calculateRating: ${error}`);
-            return;
-        }
-        console.log(`Python script output:\n${stdout}`);
-    });
+// function continuouslyRunningFunction() {
+//     const pythonProcess = exec('python3 services/calculateRating.py', (error, stdout, stderr) => {
+//         if (error) {
+//             console.error(`Error executing the calculateRating: ${error}`);
+//             return;
+//         }
+//         console.log(`Python script output:\n${stdout}`);
+//     });
     
-}
+// }
 
-setInterval(continuouslyRunningFunction, 3000); // change after its all done 
+// setInterval(continuouslyRunningFunction, 3000); // change after its all done 
 
 // ====================================================================================== //
 

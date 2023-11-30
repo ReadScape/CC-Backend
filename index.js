@@ -14,6 +14,8 @@ const interDataRouter = require("./routes/interData");
 const calcPostPopRouter = require("./routes/calcPostPopularity");
 const bodyParser = require('body-parser');
 
+//The import thingy
+const { exec } = require('child_process');
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -31,6 +33,23 @@ app.get("/", (req, res) => {
 app.get("/pm2test",(req, res) => {;
     res.json({ message: "this is to test pm2 restart it should change again and retest"})
 });
+
+// =====================================Phyton Code======================================= //
+
+function continuouslyRunningFunction() {
+    const pythonProcess = exec('python3 services/calculateRating.py', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error executing the calculateRating: ${error}`);
+            return;
+        }
+        console.log(`Python script output:\n${stdout}`);
+    });
+    
+}
+
+setInterval(continuouslyRunningFunction, 3000); // change after its all done 
+
+// ====================================================================================== //
 
 app.use("/rating", ratingRouter);
 app.use("/fiction", fanfictRouter);

@@ -35,23 +35,32 @@ async function getRating(page = 1){
     }
 }
 
-async function createCFR(CFR){
-    const result = await db.query(
-      `INSERT INTO calculate_fiction_rating 
-      (fiction_id, rating_count, rating_mean, weighted_mean, num_click, num_love, popularity) 
-      VALUES 
-      ('${CFR.fiction_id}', '${CFR.rating_count}', '${CFR.rating_mean}', '${CFR.weighted_mean}', '${CFR.num_click}', '${CFR.num_love}', '${CFR.popularity}')`
-    );
-  
+async function createCFR(calcFiction) {
+  try {
+    const fictionData = calcFiction[0]; // Problem Statement #1
+    const query = `INSERT INTO calculate_fiction_rating 
+                   (fiction_id, count, mean, click, love, popularity, weighted_mean) 
+                   VALUES 
+                   ('${fictionData.fiction_id}', '${fictionData.count}', '${fictionData.mean}', '${fictionData.click}', '${fictionData.love}', '${fictionData.popularity}', '${fictionData.weighted_mean}')`;
+    console.log(calcFiction);
+    console.log('Executing Database Query:', query);
+
+    const result = await db.query(query);
+
+    console.log('Database Query Result:', result);
+
     let message = 'Error in creating the Calculated Fiction Rating';
-  
+
     if (result.affectedRows) {
       message = 'Calculated Fiction Rating created successfully';
     }
-  
-    return {message};
-}
 
+    return { message };
+  } catch (err) {
+    console.error('Error while creating fiction_rating', err.message);
+    throw err;
+  }
+}
 async function createFicRate(FicRate){
     const result = await db.query(
       `INSERT INTO fiction_rating 

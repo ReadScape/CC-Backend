@@ -34,33 +34,31 @@ async function getRating(page = 1){
         meta
     }
 }
+///
 
-async function createCFR(calcFiction) {
-  try {
-    const fictionData = calcFiction[0]; // Problem Statement #1
-    const query = `INSERT INTO calculate_fiction_rating 
-                   (fiction_id, count, mean, click, love, popularity, weighted_mean) 
-                   VALUES 
-                   ('${fictionData.fiction_id}', '${fictionData.count}', '${fictionData.mean}', '${fictionData.click}', '${fictionData.love}', '${fictionData.popularity}', '${fictionData.weighted_mean}')`;
-    console.log(calcFiction);
+async function createCFR(calcFiction){
+  try{
+    const values = calcFiction.map(fictionData => `('${fictionData.fiction_id}', '${fictionData.count}', '${fictionData.mean}', '${fictionData.click}', '${fictionData.love}', '${fictionData.popularity}', '${fictionData.weighted_mean}')`).join(',');
+
+    const query = `INSERT INTO calculate_fiction_rating (fiction_id,  count, mean, click, love, popularity, weighted_mean) VALUES ${values}`;
     console.log('Executing Database Query:', query);
 
     const result = await db.query(query);
 
-    console.log('Database Query Result:', result);
-
-    let message = 'Error in creating the Calculated Fiction Rating';
-
-    if (result.affectedRows) {
-      message = 'Calculated Fiction Rating created successfully';
+    console.log('Database query result:', result);
+    
+    let message = 'ANjay error';
+    if(result.affectedRows){
+      message = 'yes bisa'
     }
-
     return { message };
-  } catch (err) {
-    console.error('Error while creating fiction_rating', err.message);
+  } catch (err){
+    console.error('kms', err.message);
     throw err;
   }
 }
+
+//
 async function createFicRate(FicRate){
     const result = await db.query(
       `INSERT INTO fiction_rating 

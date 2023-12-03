@@ -59,8 +59,29 @@ async function removeChapters(id){
   return {message};
 }
 
+async function updateChapter(id, req, res, chapters){
+  const result = await db.query(
+    `UPDATE chapters 
+    SET 
+    path_to_text='${chapters.text}', 
+    chapter=${chapters.chapter}, 
+    title_chapter='${chapters.title_chapter}',
+    updated_at=CURRENT_TIMESTAMP 
+    WHERE chapter_id='${id}'` 
+  );
+  
+  let message = 'Error in updating chapter';
+
+  if (result.affectedRows) {
+    message = 'Chapter updated successfully';
+  }
+
+  return {message};
+}
+
 module.exports = {
     getMultiple,
     removeChapters,
-    create
+    create,
+    updateChapter
 }

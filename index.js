@@ -1,6 +1,11 @@
 const express = require("express");
+const MySQLEvents = require("@rodrigogs/mysql-events");
+const axios = require('axios');
+const mysql = require('mysql');
+const config = require("./config");
 const app = express();
 const port = 3000;
+
 const ratingRouter = require("./routes/bookrating");
 const fanfictRouter = require("./routes/fanfict");
 const chaptersRouter = require("./routes/chapters");
@@ -12,6 +17,7 @@ const postDataRouter = require("./routes/post_data");
 const userTagDataRouter = require("./routes/userTagData");
 const interDataRouter = require("./routes/interData");
 const calcPostPopRouter = require("./routes/calcPostPopularity");
+const searchRouter = require("./routes/search");
 const bodyParser = require('body-parser');
 
 //The import thingy
@@ -30,6 +36,47 @@ app.use(
 app.get("/", (req, res) => {
     res.json({ message: "ok"});
 });
+const program = async () => {
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'gustira1708',
+      });    const instance = new MySQLEvents(connection, {
+      startAtEnd: true,
+      excludedSchemas: {
+        mysql: true,
+      },
+    });
+  
+    await instance.start();
+  
+    instance.addTrigger({
+      name: 'TEST',
+      expression: '*',
+      statement: MySQLEvents.STATEMENTS.ALL,
+      onEvent: (event) => { // You will receive the events here
+
+        if (event.table === 'chapters' && event.type === 'INSERT') {
+            console.log('INSERT event:', event.affectedColumns);
+            const apiUrl = 'https://readscape.live/pdftodatabase';
+            axios.post(apiUrl)
+            .then(response => {
+                console.log('Response: ', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+            })
+          }
+        }
+   });
+
+    instance.on(MySQLEvents.EVENTS.CONNECTION_ERROR, console.error);
+    instance.on(MySQLEvents.EVENTS.ZONGJI_ERROR, console.error);
+  };
+  
+  program()
+    .then(() => console.log('Waiting for database events...'))
+    .catch(console.error);
 app.get("/pm2test",(req, res) => {;
     res.json({ message: "this is to test pm2 restart it should change again and retest"})
 });
@@ -47,7 +94,7 @@ function continuouslyRunningFunction() {
     
 }
 
-setInterval(continuouslyRunningFunction, 3000); // change after its all done 
+setInterval(continuouslyRunningFunction, 3000); // change after its all done
 
 // ====================================================================================== //
 
@@ -62,6 +109,7 @@ app.use("/post_data",postDataRouter);
 app.use("/userTagData",userTagDataRouter);
 app.use("/interData", interDataRouter);
 app.use("/calcPostPopularity", calcPostPopRouter);
+app.use("/search", searchRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

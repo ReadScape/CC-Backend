@@ -55,6 +55,42 @@ router.post('/', async (req, res, next) => {
     });
 });
 
+router.put('/:id', async (req, res, next) => {
+    processFile(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+            // Multer error (e.g., file size exceeded)
+            return res.status(400).json({ error: err.message });
+        } else if (err) {
+            // Other unexpected errors
+            console.error(`Error during file upload`, err.message);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        // If no file is uploaded
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded.' });
+        }
+
+        try {
+            const fileUrl = await bucket.upload(req.file);
+            const id = req.params.id
+            const chapterData = {
+                text: fileUrl,
+                chapter: req.body.chapter,
+                title_chapter: req.body.title_chapter,
+            };
+
+            console.log('Chapter Data:', chapterData); // Add this line for debugging
+
+            const result = await chapters.updateChapter(id, req, res, chapterData);
+            console.log('Result:', result); // Add this line for debugging
+            res.json(result);
+        } catch (err) {
+            console.error(`Error while updating chapter`, err.message);
+            next(err);
+        }
+    });
+});
 router.patch('/:id', async function (req, res, next) {
     try {
         res.json(await chapters.removeChapters(req.params.id));

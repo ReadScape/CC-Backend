@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { createCFR } = require("../services/fiction_rating");
+const { createCFR, getCalculatedRating } = require("../services/fiction_rating");
 
 router.get('/', async function(req, res, next) {
     try {
-        res.json(await calculate_fiction_rating.getCalculatedRating(req.query.page));
+        res.json(await getCalculatedRating(req.query.page));
     } catch (err) {
         console.error(`Error while getting the calculated rating `, err.message);
         next(err);
@@ -15,7 +15,7 @@ router.get('/', async function(req, res, next) {
 
 router.post('/', async function (req, res, next) {
     try {
-        console.log(req);
+        //console.log(req.body);
         res.json(await createCFR(req.body));
     } catch (err) {
         console.error(`Error while inserting to calculate fiction`, err.message);

@@ -87,7 +87,7 @@ def calculate_interaction(rating_dir ='https://readscape.live/fiction_ratings'):
         data_df = pd.read_json(json.dumps(json_data['data']))
 
             # Display the DataFrame
-        print(data_df)
+        #print(data_df)
     else:
             # Print an error message if the request was not successful
         print(f"Error: {response.status_code}")
@@ -97,7 +97,7 @@ def calculate_interaction(rating_dir ='https://readscape.live/fiction_ratings'):
     fiction_recs['weighted_mean'] = calculate_weighted_mean(fiction_recs)
     selected_columns = ['fiction_id', 'count', 'mean', 'click', 'love', 'popularity', 'weighted_mean']
     fiction_recs_list = fiction_recs[selected_columns].to_dict(orient='records')
-
+    #print(fiction_recs_list)
     # API endpoint URL
     api_url = "https://readscape.live/calculatedrating"
 
@@ -108,7 +108,7 @@ def calculate_interaction(rating_dir ='https://readscape.live/fiction_ratings'):
     response = requests.post(api_url, data=fiction_recs_json, headers={'Content-Type': 'application/json'})
 
     if response.status_code == 200:
-        return print("Post successful!")
+        return print("calculatedRating post successful!")
     else:
         return print(f"Failed to post data. Status code: {response.status_code}, Response text: {response.text}")
 

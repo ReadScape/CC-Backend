@@ -6,57 +6,77 @@ const config = require("../config");
 // READ FUNCTION blablablablalblalbaba
 
 async function getCalculatedRating(page = 1){
-    const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-        `SELECT * FROM calculate_fiction_rating LIMIT ${offset}, ${config.listPerPage}`
+        `SELECT * FROM calculate_fiction_rating`
     );
 
     const data = helper.emptyOrRows(rows);
-    const meta = {page};
     
     return {
         data,
-        meta
     }
 }
 
 async function getRating(page = 1){
-    const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-        `SELECT * FROM fiction_rating LIMIT ${offset}, ${config.listPerPage}`
+        `SELECT * FROM fiction_rating`
     );
 
     const data = helper.emptyOrRows(rows);
-    const meta = {page};
     
     return {
-        data,
-        meta
+        data
     }
 }
-///
+//=============================================CONTAIMENT ZONE==================================================//
 
 async function createCFR(calcFiction){
   try{
-    const values = calcFiction.map(fictionData => `('${fictionData.fiction_id}', '${fictionData.count}', '${fictionData.mean}', '${fictionData.click}', '${fictionData.love}', '${fictionData.popularity}', '${fictionData.weighted_mean}')`).join(',');
+    for (const fictionData of calcFiction) {
+      //console.log('Processing fictionData:', fictionData);
+      const checkQuery = `SELECT * FROM calculate_fiction_rating WHERE fiction_id = '${fictionData.fiction_id}'`;
+      const existingRecord = await db.query(checkQuery);
 
-    const query = `INSERT INTO calculate_fiction_rating (fiction_id,  count, mean, click, love, popularity, weighted_mean) VALUES ${values}`;
-    console.log('Executing Database Query:', query);
+      if (existingRecord.length > 0) {
 
-    const result = await db.query(query);
+        // If the record exists, update it :D
+        const updateQuery = `
+        UPDATE calculate_fiction_rating
+          SET
+            count = '${fictionData.count}',
+            mean = '${fictionData.mean}',
+            click = '${fictionData.click}',
+            love = '${fictionData.love}',
+            popularity = '${fictionData.popularity}',
+            weighted_mean = '${fictionData.weighted_mean}'
+          WHERE fiction_id = '${fictionData.fiction_id}'`;
 
-    console.log('Database query result:', result);
-    
-    let message = 'ANjay error';
-    if(result.affectedRows){
-      message = 'yes bisa'
+        //console.log('Executing Database Query:', updateQuery);
+        const updateResult = await db.query(updateQuery);
+
+        //console.log('Update Result:', updateResult);
+      } else { 
+
+        const insertQuery = `
+          INSERT INTO calculate_fiction_rating 
+          (fiction_id, count, mean, click, love, popularity, weighted_mean) 
+          VALUES 
+          ('${fictionData.fiction_id}', '${fictionData.count}', '${fictionData.mean}', '${fictionData.click}', '${fictionData.love}', '${fictionData.popularity}', '${fictionData.weighted_mean}')`;
+
+        //console.log('Executing Database Query:', insertQuery);
+        const insertResult = await db.query(insertQuery);
+
+        //console.log('Insert Result:', insertResult);
+      }
     }
-    return { message };
+    return { message: 'Calculated Fiction Ratings processed successfully' };
   } catch (err){
-    console.error('kms', err.message);
+    console.error('Error while creating or updating fiction_rating', err.message);
     throw err;
   }
 }
+
+//=============================================CONTAIMENT ZONE==================================================//
 
 //
 async function createFicRate(FicRate){

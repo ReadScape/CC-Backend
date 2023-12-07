@@ -18,6 +18,9 @@ const userTagDataRouter = require("./routes/userTagData");
 const interDataRouter = require("./routes/interData");
 const calcPostPopRouter = require("./routes/calcPostPopularity");
 const searchRouter = require("./routes/search");
+const plagarismRouter = require("./routes/plagarism");
+const detailsRouter = require("./routes/details");
+const finalsRouter = require("./routes/finals");
 const bodyParser = require('body-parser');
 
 //The import thingy
@@ -94,7 +97,7 @@ function continuouslyRunningFunction() {
     
 }
 
-setInterval(continuouslyRunningFunction, 3000); // change after its all done
+setInterval(continuouslyRunningFunction, 900000); // change after its all done
 
 // ====================================================================================== //
 
@@ -110,6 +113,9 @@ app.use("/userTagData",userTagDataRouter);
 app.use("/interData", interDataRouter);
 app.use("/calcPostPopularity", calcPostPopRouter);
 app.use("/search", searchRouter);
+app.use("/simcheck", plagarismRouter);
+app.use("/simdetails", detailsRouter);
+app.use("/simfinals", finalsRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

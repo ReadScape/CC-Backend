@@ -1,7 +1,7 @@
 const express = require("express");
+
 const app = express();
-const port = 3000;
-const ratingRouter = require("./routes/bookrating");
+const port = 8000;
 const fanfictRouter = require("./routes/fanfict");
 const chaptersRouter = require("./routes/chapters");
 const fictionRatingRouter = require("./routes/fiction_rating");
@@ -13,7 +13,8 @@ const userTagDataRouter = require("./routes/userTagData");
 const interDataRouter = require("./routes/interData");
 const calcPostPopRouter = require("./routes/calcPostPopularity");
 const bodyParser = require('body-parser');
-
+const path = require('path');
+const authRouter = require("./routes/authRouter");
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -24,6 +25,7 @@ app.use(
         extended: true,
     })
 );
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/", (req, res) => {
     res.json({ message: "Server is Online!"});
@@ -32,7 +34,9 @@ app.get("/pm2test",(req, res) => {;
     res.json({ message: "this is to test pm2 restart it should change again and retest"})
 });
 
-app.use("/rating", ratingRouter);
+
+app.use("/auth", authRouter);
+
 app.use("/fiction", fanfictRouter);
 app.use("/chapters", chaptersRouter);
 app.use("/fiction_ratings", fictionRatingRouter);

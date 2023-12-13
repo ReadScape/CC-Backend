@@ -19,7 +19,20 @@ async function getMultiple(page = 1){
         meta
     }
 }
+async function getFiction(id){
+  const fiction = await db.query(
+    `SELECT user_id, author, title, synopsis, tags, chapters, img_path FROM fiction WHERE fiction_id='${id}'`);
+  const chapters = await db.query(
+    `SELECT chapter_id, path_to_text, chapter, title_chapter FROM chapters WHERE fiction_id='${id}'`);
+  const rating = await db.query(
+    `SELECT click, love, mean AS rating FROM calculate_fiction_rating WHERE fiction_id='${id}'`);
 
+    return {
+      fiction,
+      chapters,
+      rating
+    }
+}
 
 // END OF READ FUNCTION
 // POST FUNCTION
@@ -84,6 +97,7 @@ async function updateFiction(id, req, res, fiction){
 }
 module.exports = {
     getMultiple,
+    getFiction,
     create,
     remove,
     updateFiction,

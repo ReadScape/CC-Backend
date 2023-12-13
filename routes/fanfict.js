@@ -17,6 +17,14 @@ router.get('/', async function(req, res, next) {
         next(err);
     }
 });
+router.get('/get/:id', async function(req, res, next) {
+    try {
+        res.json(await fanfict.getFiction(req.params.id));
+    } catch (err) {
+        console.error(`Error while getting fanfiction `, err.message);
+        next(err);
+    }
+});
 
 /*router.post('/', async function (req, res, next) {
     try {

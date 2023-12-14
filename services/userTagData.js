@@ -37,7 +37,21 @@ async function createUTagData(UTD){
     return {message};
 }
 
+async function removeUTagData(id){
+    const currentDateTime = new Date().toISOString();
+    const delquery = `UPDATE user_tags_data SET deleted_at = NOW() WHERE user_id='${id}'`;
+    const result = await db.query( delquery );
+    let message = 'Error in deleting the user tag data';
+  
+    if (result.affectedRows) {
+      message = 'User tagged data deleted successfully';
+    }
+  
+    return {message};
+}
+
 module.exports = {
     getUTagData,
     createUTagData,
+    removeUTagData
 }

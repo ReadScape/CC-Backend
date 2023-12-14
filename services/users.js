@@ -5,6 +5,8 @@ const config = require("../config");
 
 // READ FUNCTION blablablablalblalbaba
 
+// dari firebas, no add add disini 
+
 async function getMultiple(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(

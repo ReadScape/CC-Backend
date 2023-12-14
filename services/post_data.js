@@ -37,7 +37,23 @@ async function createPostData(CPD){
     return {message};
 }
 
+async function removePostData(id){
+    const currentDateTime = new Date().toISOString();
+    const delquery = `UPDATE post_data SET deleted_at = NOW() WHERE post_id='${id}'`;
+    const result = await db.query( delquery );
+    let message = 'Error in deleting the post data';
+  
+    if (result.affectedRows) {
+      message = 'Post data deleted successfully';
+    }
+  
+    return {message};
+}
+
+
+
 module.exports = {
     getPostData,
     createPostData,
+    removePostData
 }

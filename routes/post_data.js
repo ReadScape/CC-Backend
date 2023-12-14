@@ -27,5 +27,13 @@ router.post('/', async function (req, res, next) {
 /// update
 
 /// delete
+router.patch('/:id', async function (req, res, next) {
+    try {
+        res.json(await postdata.removePostData(req.params.id));
+    } catch (err) {
+        console.error(`Error while deleting post data`, err.message);
+        next(err);
+    }
+});
 
 module.exports = router;

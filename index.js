@@ -127,7 +127,7 @@ app.use((err, req, res, next) => {
 
 
 app.listen(port, () => {
-    console.log(`Example API running on http://readscape.live:${port}`);
+    console.log(`Example API running on https://readscape.live`);
 });
 
 

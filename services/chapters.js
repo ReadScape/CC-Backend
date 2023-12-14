@@ -22,6 +22,15 @@ async function getMultiple(page = 1){
     }
 }
 
+async function getChapter(id){
+  const chapters = await db.query(
+    `SELECT * FROM chapters WHERE chapter_id='${id}'`);
+
+    return {
+      chapters
+    }
+}
+
 async function create(req, res, chapters) {
   try {
     const result = await db.query(
@@ -81,6 +90,7 @@ async function updateChapter(id, req, res, chapters){
 
 module.exports = {
     getMultiple,
+    getChapter,
     removeChapters,
     create,
     updateChapter

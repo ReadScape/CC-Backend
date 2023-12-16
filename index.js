@@ -22,6 +22,8 @@ const plagarismRouter = require("./routes/plagarism");
 const detailsRouter = require("./routes/details");
 const finalsRouter = require("./routes/finals");
 const trackingRouter = require("./routes/tracking");
+const bookmarkRouter = require("./routes/bookmark");
+const connectionsRouter = require("./routes/connections");
 const bodyParser = require('body-parser');
 
 //The import thingy
@@ -118,6 +120,8 @@ app.use("/simcheck", plagarismRouter);
 app.use("/simdetails", detailsRouter);
 app.use("/simfinals", finalsRouter);
 app.use("/tracking", trackingRouter);
+app.use("/bookmark", bookmarkRouter);
+app.use("/connections", connectionsRouter)
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

@@ -3,7 +3,7 @@ const helper = require("../helper");
 const config = require("../config");
 
 
-// BELUM DI EDIT
+// udah di tes
 
 async function getTrack(id){
     const rows = await db.query(
@@ -55,21 +55,6 @@ async function updateTrack(id){
   
     return {message};
   }
-
-
-
-// async function removeTrack(id){
-//     const currentDateTime = new Date().toISOString();
-//     const delquery = `UPDATE post_data SET deleted_at = NOW() WHERE post_id='${id}'`;
-//     const result = await db.query( delquery );
-//     let message = 'Error in deleting the post data';
-  
-//     if (result.affectedRows) {
-//       message = 'Post data deleted successfully';
-//     }
-  
-//     return {message};
-// }
 
 
 

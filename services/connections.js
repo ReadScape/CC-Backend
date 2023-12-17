@@ -3,7 +3,7 @@ const helper = require("../helper");
 const config = require("../config");
 
 
-// AHHHHHH
+// oke oce
 
 async function getFollowing(id){
     const rows = await db.query(

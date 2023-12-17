@@ -24,6 +24,7 @@ const finalsRouter = require("./routes/finals");
 const trackingRouter = require("./routes/tracking");
 const bookmarkRouter = require("./routes/bookmark");
 const connectionsRouter = require("./routes/connections");
+const postcommentRouter = require ("./routes/post_comment");
 const bodyParser = require('body-parser');
 
 //The import thingy
@@ -100,7 +101,7 @@ function continuouslyRunningFunction() {
     
 }
 
-setInterval(continuouslyRunningFunction, 900000); // change after its all done
+setInterval(continuouslyRunningFunction, 900000); // janglups di ganti sesuai perlunya
 
 // ====================================================================================== //
 
@@ -121,7 +122,8 @@ app.use("/simdetails", detailsRouter);
 app.use("/simfinals", finalsRouter);
 app.use("/tracking", trackingRouter);
 app.use("/bookmark", bookmarkRouter);
-app.use("/connections", connectionsRouter)
+app.use("/connections", connectionsRouter);
+app.use("/postcomment", postcommentRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

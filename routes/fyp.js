@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const fyp = require("../services/fyp");
 
-router.get('/', async function(req, res, next) {
+router.get('/:id', async function(req, res, next) {
     try {
-        const result = await fyp.fypScript();
+        const result = await fyp.fypScript(req.params.id);
         console.log('Parsed JSON:', result);
         res.json(result);
     } catch (err) {

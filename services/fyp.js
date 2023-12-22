@@ -1,8 +1,8 @@
 const { exec } = require('child_process');
 
-async function fypScript() {
+async function fypScript(id) {
     return  new Promise((resolve, reject) => {
-        exec('python3 services/process/Fanfiction_RecSys/main.py', (error, stdout, stderr) => {
+        exec('python3 services/process/Fanfiction_RecSys/main.py',[id], (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error executing the main.py script: ${error}`);
                 reject(error);

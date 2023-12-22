@@ -4,7 +4,7 @@ const config = require("../config");
 const fyp = require("./fyp");
 
 
-async function getHome(){
+async function getHome(id){
     const rows = await db.query(
         `SELECT f.*, fr.rating
         FROM fiction f
@@ -13,7 +13,7 @@ async function getHome(){
     );
 
     const best_seller = helper.emptyOrRows(rows);
-    const { fiction_id } = await fyp.fypScript();
+    const { fiction_id } = await fyp.fypScript(id);
     const query = `
     SELECT f.*, fr.rating
     FROM fiction f

@@ -2,6 +2,7 @@ from load_data import load_data
 from popular_fanfic import request_popular_content
 from fanfic_recsys import request_fanfic_recommendation
 from fanfic_CF import request_fanfic_CF
+import sys
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -44,7 +45,7 @@ if __name__ == "__main__":
     url_rating = "http://localhost:3000/fiction_ratings"
     url_fiction = 'http://localhost:3000/fiction'
     model_path = 'services/process/Fanfiction_RecSys/CF_DL_model_V0.1.h5'
-    user_id = '7bdba0b4-8aeb-11ee-8ba1-42010ab80003'
+    user_id = sys.argv[0]
     # set the desired time range: 'weekly', 'monthly', 'yearly', or None (all time)
     time_range = None
     # set the desired genre: 

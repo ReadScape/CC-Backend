@@ -4,9 +4,9 @@ const homepage = require("../services/homepage");
 
 
 
-router.get('/', async function(req, res, next) {
+router.get('/:id', async function(req, res, next) {
     try {
-        res.json(await homepage.getHome());
+        res.json(await homepage.getHome(req.params.id));
     } catch (err) {
         console.error(`Error while getting interaction data`, err.message);
         next(err);

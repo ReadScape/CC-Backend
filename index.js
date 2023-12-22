@@ -7,6 +7,7 @@ const app = express();
 const port = 3000;
 
 const ratingRouter = require("./routes/bookrating");
+const homepageRouter = require("./routes/homepage");
 const fanfictRouter = require("./routes/fanfict");
 const chaptersRouter = require("./routes/chapters");
 const fictionRatingRouter = require("./routes/fiction_rating");
@@ -19,6 +20,7 @@ const interDataRouter = require("./routes/interData");
 const calcPostPopRouter = require("./routes/calcPostPopularity");
 const searchRouter = require("./routes/search");
 const plagarismRouter = require("./routes/plagarism");
+const fypRouter = require("./routes/fyp");
 const detailsRouter = require("./routes/details");
 const finalsRouter = require("./routes/finals");
 const trackingRouter = require("./routes/tracking");
@@ -106,6 +108,7 @@ setInterval(continuouslyRunningFunction, 900000); // janglups di ganti sesuai pe
 // ====================================================================================== //
 
 app.use("/rating", ratingRouter);
+app.use("/home", homepageRouter);
 app.use("/fiction", fanfictRouter);
 app.use("/chapters", chaptersRouter);
 app.use("/fiction_ratings", fictionRatingRouter);
@@ -117,6 +120,7 @@ app.use("/userTagData",userTagDataRouter);
 app.use("/interData", interDataRouter);
 app.use("/calcPostPopularity", calcPostPopRouter);
 app.use("/search", searchRouter);
+app.use("/recommendation", fypRouter);
 app.use("/simcheck", plagarismRouter);
 app.use("/simdetails", detailsRouter);
 app.use("/simfinals", finalsRouter);
@@ -124,6 +128,7 @@ app.use("/tracking", trackingRouter);
 app.use("/bookmark", bookmarkRouter);
 app.use("/connections", connectionsRouter);
 app.use("/postcomment", postcommentRouter);
+
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

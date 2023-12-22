@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { exec } = require('child_process');
-/// get
 
 router.get('/', async function(req, res, next) {
     try {

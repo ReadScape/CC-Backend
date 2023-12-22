@@ -21,6 +21,10 @@ const searchRouter = require("./routes/search");
 const plagarismRouter = require("./routes/plagarism");
 const detailsRouter = require("./routes/details");
 const finalsRouter = require("./routes/finals");
+const trackingRouter = require("./routes/tracking");
+const bookmarkRouter = require("./routes/bookmark");
+const connectionsRouter = require("./routes/connections");
+const postcommentRouter = require ("./routes/post_comment");
 const bodyParser = require('body-parser');
 
 //The import thingy
@@ -97,7 +101,7 @@ function continuouslyRunningFunction() {
     
 }
 
-setInterval(continuouslyRunningFunction, 900000); // change after its all done
+setInterval(continuouslyRunningFunction, 900000); // janglups di ganti sesuai perlunya
 
 // ====================================================================================== //
 
@@ -108,7 +112,7 @@ app.use("/fiction_ratings", fictionRatingRouter);
 app.use("/pdftodatabase", pdfToDatabaseRouter);
 app.use("/users", usersRouter);
 app.use("/calculatedrating",calculatedRatingRouter);
-app.use("/post_data",postDataRouter);
+app.use("/post_data", postDataRouter);
 app.use("/userTagData",userTagDataRouter);
 app.use("/interData", interDataRouter);
 app.use("/calcPostPopularity", calcPostPopRouter);
@@ -116,6 +120,10 @@ app.use("/search", searchRouter);
 app.use("/simcheck", plagarismRouter);
 app.use("/simdetails", detailsRouter);
 app.use("/simfinals", finalsRouter);
+app.use("/tracking", trackingRouter);
+app.use("/bookmark", bookmarkRouter);
+app.use("/connections", connectionsRouter);
+app.use("/postcomment", postcommentRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

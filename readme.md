@@ -31,3 +31,5 @@ This endpoint is handled by the `usersRouter`. It's used for operations related 
 This endpoint is handled by the `calculatedRatingRouter`. It's used for operations related to calculated ratings.
 
 Main URL for API is https://readscape.live
+
+-------
